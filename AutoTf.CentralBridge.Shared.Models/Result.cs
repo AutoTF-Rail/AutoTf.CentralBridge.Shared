@@ -15,7 +15,7 @@ public class Result<T> : ResultBase
 
     public static Result<T> Ok(T value) => new(ResultCode.Success, value, "");
 
-    public static Result<T> Fail(ResultCode resultCode, string error) => new(resultCode, default, error);
+    public static Result<T> Fail(ResultCode resultCode, string error = "") => new(resultCode, default, error);
     
     public static implicit operator Result<T>(T value) => Ok(value);
     
