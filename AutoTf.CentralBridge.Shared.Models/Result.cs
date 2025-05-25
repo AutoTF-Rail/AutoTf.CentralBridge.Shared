@@ -17,6 +17,8 @@ public class Result<T> : ResultBase
 
     public static Result<T> Fail(ResultCode resultCode, string error) => new(resultCode, default, error);
     
+    public static implicit operator Result<T>(T value) => Ok(value);
+    
     public override IActionResult Convert()
     {
         return ResultCode switch
@@ -40,6 +42,11 @@ public class Result : ResultBase
     }
     
     public static Result Ok() => new(ResultCode.Success, "");
+    
+    public static implicit operator Result(bool value)
+    {
+        return value ? Ok() : Fail(ResultCode.Unknown, "Operation failed.");
+    }
 
-    public static Result Fail(ResultCode resultCode, string error) => new(resultCode, error);
+    public static Result Fail(ResultCode resultCode, string error = "") => new(resultCode, error);
 }
